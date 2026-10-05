@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="MyListSuite" parallel="false">
+    <test name="MyListTests">
+        <classes>
+            <class name="mylist.Testcase1"/>
+            <class name="mylist.Testcase2"/>
+            <class name="mylist.Testcase3"/>
+            <class name="mylist.Testcase4"/>
+        </classes>
+    </test>
+</suite>

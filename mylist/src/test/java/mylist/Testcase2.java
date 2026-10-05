@@ -1,22 +1,29 @@
 package mylist;
 
 import java.time.Duration;
+import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 
 public class Testcase2 {
 
     @Test
     public void secondlist()throws InterruptedException {
+    	 ChromeOptions options = new ChromeOptions();
 
-        WebDriver driver = new ChromeDriver();
+	        options.setExperimentalOption(
+	                "prefs",
+	                Map.of("profile.password_manager_leak_detection", false)
+	        );
+
+        WebDriver driver = new ChromeDriver(options);
 
         WebDriverWait wait = new WebDriverWait(
                 driver,
@@ -56,9 +63,23 @@ public class Testcase2 {
             Thread.sleep(2000);
             // Click Create Lead
             wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//a[normalize-space()='Vasanthi Karthik (Wipro)']")))
+                    By.xpath("//a[normalize-space()='Find Leads']")))
                     .click();
-            Thread.sleep(3000);
+            Thread.sleep(2000);
+            WebElement id=wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("//input[@name='id']")));
+                   id.click();
+                   id.sendKeys("10778");
+                   wait.until(ExpectedConditions.elementToBeClickable(
+                           By.xpath("//button[text()='Find Leads']")))
+                           .click();
+                   Thread.sleep(5000);
+                   wait.until(ExpectedConditions.elementToBeClickable(
+                           By.xpath("//a[text()='10778']")))
+                           .click();
+                   Thread.sleep(2000);
+                   
+            Thread.sleep(2000);
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[normalize-space()='Edit']")))
             .click();
             Thread.sleep(4000);
@@ -78,7 +99,7 @@ public class Testcase2 {
             .click();
             Thread.sleep(1000);
            
-   
+   System.out.println("Data Updated Successfully");
             
            
 ;        } finally {

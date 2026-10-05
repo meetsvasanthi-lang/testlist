@@ -1,22 +1,29 @@
 package mylist;
 
 import java.time.Duration;
+import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class Testcase4 {
 
     @Test
     public void secondlist()throws InterruptedException {
+    	ChromeOptions options = new ChromeOptions();
 
-        WebDriver driver = new ChromeDriver();
+        options.setExperimentalOption(
+                "prefs",
+                Map.of("profile.password_manager_leak_detection", false)
+        );
+
+        WebDriver driver = new ChromeDriver(options);
 
         WebDriverWait wait = new WebDriverWait(
                 driver,
@@ -63,42 +70,41 @@ public class Testcase4 {
             	    By.xpath("//span[normalize-space()='Name and ID']")
             	));
             	nameTab.click();
-
-            	WebElement leadid = wait.until(ExpectedConditions.visibilityOfElementLocated(
-            	    By.id("ext-gen246")
-            	));
-            	leadid.clear();
-            	leadid.sendKeys("10612");
-            	Thread.sleep(3000);
-            	WebElement firstName = wait.until(ExpectedConditions.elementToBeClickable(
-                	    By.id("ext-gen248")
-                	));
-                	firstName.clear();
-                	firstName.sendKeys("Vasanthi");
-                	Thread.sleep(1000);
-                	WebElement company = wait.until(ExpectedConditions.elementToBeClickable(
-                    	    By.id("ext-gen252")
-                    	));
-                    	company.clear();
-                    	company.sendKeys("wipro");
-                    	Thread.sleep(1000);
+            	WebElement leadId = wait.until(ExpectedConditions.visibilityOfElementLocated(
+            		    By.name("id")
+            		));
+            		leadId.clear();
+            		leadId.sendKeys("10782");
             	
-            	 wait.until(ExpectedConditions.elementToBeClickable(
-                         By.xpath("//button[@id='ext-gen763']")))
-                         .click();
-                 Thread.sleep(4000);
-                 wait.until(ExpectedConditions.elementToBeClickable(
-                         By.xpath("//button[@id='ext-gen385']")));
-                         
-                 
-                // WebElement leadList = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                		 //   By.xpath("//*[normalize-space()='Lead List']")));
-        
-                 Thread.sleep(4000);
-                
-                		
+                	wait.until(ExpectedConditions.elementToBeClickable(
+                            By.xpath("//button[text()='Find Leads']")))
+                            .click();
+                    Thread.sleep(3000);
+                	       
 
-           
+            	 wait.until(ExpectedConditions.elementToBeClickable(
+                         By.xpath("//a[text()='10782']")))
+                         .click();
+            	Thread.sleep(2000);
+            	 wait.until(ExpectedConditions.elementToBeClickable(
+                         By.xpath("//a[text()='Delete']")))
+                         .click();
+            	Thread.sleep(6000);
+            	
+            	
+            	wait.until(ExpectedConditions.elementToBeClickable(
+                        By.xpath("//a[text()='Find Leads']")))
+                        .click();
+                Thread.sleep(4000);
+                
+                WebElement lead = wait.until(ExpectedConditions.visibilityOfElementLocated(
+            		    By.name("id")
+            		));
+            		lead.clear();
+            		lead.sendKeys("10782");
+            		Thread.sleep(3000);
+            	
+                    	       
         } finally {
 
             // Close browser completely

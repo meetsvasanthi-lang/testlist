@@ -1,10 +1,12 @@
 package mylist;
 
 import java.time.Duration;
+import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -15,8 +17,14 @@ public class Testcase1
 
     @Test
     public void secondlist() throws InterruptedException{
+    	 ChromeOptions options = new ChromeOptions();
 
-        WebDriver driver = new ChromeDriver();
+	        options.setExperimentalOption(
+	                "prefs",
+	                Map.of("profile.password_manager_leak_detection", false)
+	        );
+
+        WebDriver driver = new ChromeDriver(options);
 
         WebDriverWait wait = new WebDriverWait(
                 driver,
